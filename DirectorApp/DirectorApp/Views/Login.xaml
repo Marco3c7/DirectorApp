@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DirectorApp.Views.Login">
+    <ContentPage.Resources>
+        <Style TargetType="Label" x:Key="Estilo1">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#000000"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo2">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="TextColor" Value="#FF0000"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="20"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="Estilo3">
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="70,30"/>
+        </Style>
+        <Style TargetType="Button" x:Key="Estilo4">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#F5F5F5"/>
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="BackgroundColor" Value="#82C02F"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+
+        <Image VerticalOptions="Start" Grid.Row="0" Source="esquina1.png"/>
+
+        <StackLayout Grid.Row="1">
+            <Label Text="Iniciar sesión" Style="{StaticResource Estilo1}"/>
+            <Grid HeightRequest="140" Margin="20,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Image Grid.Column="0" Grid.Row="0" Source="school.png" Margin="5"/>
+                <Entry Grid.Column="1" Grid.Row="0" Placeholder="Nombre de la institución" 
+                       ClearButtonVisibility="WhileEditing"/>
+
+                <Image Grid.Column="0" Grid.Row="1" Source="password.png" Margin="5"/>
+                <Entry Grid.Column="1" Grid.Row="1" Placeholder="Contraseña"
+                       IsPassword="True"  ClearButtonVisibility="WhileEditing"/>
+            </Grid>
+            <Label Text="Mensaje de error" Style="{StaticResource Estilo2}"/>
+            <Frame Style="{StaticResource Estilo3}">
+                <Button Text="Iniciar sesión" Style="{StaticResource Estilo4}"/>
+            </Frame>
+        </StackLayout>
+
+        <Image VerticalOptions="End" Grid.Row="2" Source="esquina2.png"/>
+    </Grid>
+</ContentPage>

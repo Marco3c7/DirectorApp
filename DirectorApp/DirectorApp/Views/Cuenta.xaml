@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DirectorApp.Views.Cuenta">
+    <ContentPage.Resources>
+        <Style TargetType="Image" x:Key="Estilo1">
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="HorizontalOptions" Value="Start"/>
+            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo2">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#FFFFFF"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="Estilo3">
+            <Setter Property="WidthRequest" Value="250"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="BackgroundColor" Value="#F5F5F5"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="TranslationY" Value="-45"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo4">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="TextColor" Value="#8B4F8B"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo5">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#000000"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo6">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="Estilo7">
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="TranslationY" Value="-20"/>
+            <Setter Property="VerticalOptions" Value="EndAndExpand"/>
+            <Setter Property="HorizontalOptions" Value="EndAndExpand"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="15"/>
+        </Style>
+        <Style TargetType="ImageButton" x:Key="Estilo8">
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="120"/>
+            <RowDefinition/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Image Source="fondoCuenta.png" VerticalOptions="Start"/>
+            <StackLayout Orientation="Horizontal" Margin="30,20,30,50">
+                <Image Source="college.png" Style="{StaticResource Estilo1}"/>
+                <Label Text="Nombre de la institución" Style="{StaticResource Estilo2}"/>
+            </StackLayout>
+        </Grid>
+
+        <Frame Grid.Row="1" Style="{StaticResource Estilo3}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="85"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Image Grid.Column="0" Grid.Row="0" Source="student.png" HorizontalOptions="End"/>
+                <Label Grid.Column="1" Grid.Row="0" Text="000 estudiantes" Style="{StaticResource Estilo4}"/>
+
+                <Image Grid.Column="0" Grid.Row="1" Source="teacher.png" HorizontalOptions="End"/>
+                <Label Grid.Column="1" Grid.Row="1" Text="000 maestros" Style="{StaticResource Estilo4}"/>
+
+                <Image Grid.Column="0" Grid.Row="2" Source="team.png" HorizontalOptions="End"/>
+                <Label Grid.Column="1" Grid.Row="2" Text="000 grupos" Style="{StaticResource Estilo4}"/>
+            </Grid>
+        </Frame>
+
+        <StackLayout Grid.Row="2" TranslationY="-30" Margin="15" >
+            <StackLayout Margin="20,0,20,20">
+                <Label Text="Nombre del administrador" Style="{StaticResource Estilo5}"/>
+                <Label Text="Nombre del director" Style="{StaticResource Estilo6}"/>
+            </StackLayout>
+
+            <StackLayout Margin="20,0">
+                <Label Text="Fecha de registro" Style="{StaticResource Estilo5}"/>
+                <Label Text="01/01/2020" Style="{StaticResource Estilo6}"/>
+            </StackLayout>
+        </StackLayout>
+
+        <Frame Grid.Row="3" Style="{StaticResource Estilo7}">
+            <ImageButton Source="editAccount.png" Style="{StaticResource Estilo8}"/>
+        </Frame>
+    </Grid>
+</ContentPage>

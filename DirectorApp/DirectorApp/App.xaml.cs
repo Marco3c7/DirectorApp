@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using DirectorApp.Views;
 
 namespace DirectorApp
 {
@@ -10,7 +11,8 @@ namespace DirectorApp
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            //MainPage = new MainPage();
+            MainPage = new Mensajes();
         }
 
         protected override void OnStart()

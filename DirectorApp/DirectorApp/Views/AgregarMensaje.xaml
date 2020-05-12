@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DirectorApp.Views.AgregarMensaje">
+    <ContentPage.Resources>
+        <Style TargetType="Frame" x:Key="Estilo1">
+            <Setter Property="HeightRequest" Value="80"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="BackgroundColor" Value="#2AE2A4"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style TargetType="Image" x:Key="Estilo2">
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="Margin" Value="15,10"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo3">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#FFFFFF"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo4">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="23"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#8B4F8B"/>
+        </Style>
+        <Style TargetType="Editor" x:Key="Estilo5">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#000000"/>
+            <Setter Property="Keyboard" Value="Chat"/>
+            <Setter Property="AutoSize" Value="Disabled"/>
+        </Style>
+        <Style TargetType="Editor" x:Key="Estilo6">
+            <Setter Property="MinimumHeightRequest" Value="30"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="TextColor" Value="#000000"/>
+            <Setter Property="Keyboard" Value="Chat"/>
+            <Setter Property="AutoSize" Value="TextChanges"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="Estilo7">
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="BackgroundColor" Value="#F5F5F5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="0,20,0,0"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="Estilo8">
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="VerticalOptions" Value="EndAndExpand"/>
+            <Setter Property="HorizontalOptions" Value="EndAndExpand"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        <Style TargetType="ImageButton" x:Key="Estilo9">
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <StackLayout Margin="15">
+        <Frame Style="{StaticResource Estilo1}">
+            <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal">
+                    <Image Source="mail.png" Style="{StaticResource Estilo2}"/>
+                    <Label Text="Publicar un aviso" Style="{StaticResource Estilo3}"/>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+
+        <StackLayout>
+            <Frame Style="{StaticResource Estilo7}">
+                <StackLayout>
+                    <Label Text="Asunto" Style="{StaticResource Estilo4}"/>
+                    <Editor Style="{StaticResource Estilo5}"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame Style="{StaticResource Estilo7}">
+                <StackLayout>
+                    <Label Text="Contenido" Style="{StaticResource Estilo4}"/>
+                    <Editor Style="{StaticResource Estilo6}"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame Style="{StaticResource Estilo8}">
+                <ImageButton Source="send.png" Style="{StaticResource Estilo9}"/>
+            </Frame>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

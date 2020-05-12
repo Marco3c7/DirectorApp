@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DirectorApp.Views.Mensajes">
+    <ContentPage.Resources>
+        <Style TargetType="Frame" x:Key="Estilo1">
+            <Setter Property="HeightRequest" Value="80"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="BackgroundColor" Value="#2AE2A4"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style TargetType="Image" x:Key="Estilo2">
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="Margin" Value="15,10"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo3">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#FFFFFF"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo4">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="TextColor" Value="#000000"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
+        </Style>
+        <Style TargetType="DatePicker" x:Key="Estilo5">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="TextColor" Value="#000000"/>
+            <Setter Property="Margin" Value="5,0"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="Estilo6">
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="5,0"/>
+        </Style>
+        <Style TargetType="ImageButton" x:Key="Estilo7">
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo8">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="0,10"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="Estilo9">
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="BackgroundColor" Value="#F5F5F5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo10">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#000000"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo11">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="TextColor" Value="#F3405E"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout Margin="15">
+            <Frame Style="{StaticResource Estilo1}">
+                <StackLayout Orientation="Horizontal">
+                    <Image Source="mail.png" Style="{StaticResource Estilo2}"/>
+                    <Label Text="Avisos publicados" Style="{StaticResource Estilo3}"/>
+                </StackLayout>
+            </Frame>
+
+            <Label Text="Buscar por fecha" Style="{StaticResource Estilo4}"/>
+            <Grid HeightRequest="50">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <DatePicker Grid.Column="0" Style="{StaticResource Estilo5}"/>
+                <Frame Grid.Column="1" Style="{StaticResource Estilo6}">
+                    <ImageButton Source="addMessage.png" Style="{StaticResource Estilo7}"/>
+                </Frame>
+            </Grid>
+
+            <Label Text="Deslice el dedo hacia la izquierda para más opciones" Style="{StaticResource Estilo8}"/>
+
+            <CollectionView>
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Span="1" VerticalItemSpacing="15" Orientation="Horizontal"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Style="{StaticResource Estilo9}">
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItem IconImageSource="bin.png" BackgroundColor="#F5F5F5"/>
+                                    <SwipeItem IconImageSource="see.png" BackgroundColor="#F5F5F5"/>
+                                </SwipeView.RightItems>
+
+                                <Grid HeightRequest="40" BackgroundColor="#F5F5F5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="60"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="Suspensión de clases" Style="{StaticResource Estilo10}"/>
+                                    <Label Grid.Column="1" Text="16/03/2020" Style="{StaticResource Estilo11}"/>
+                                </Grid>
+                            </SwipeView>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
