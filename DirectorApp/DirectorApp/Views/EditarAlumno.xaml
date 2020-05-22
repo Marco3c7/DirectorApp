@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="DirectorApp.Views.EditarAlumno">
+             x:Class="DirectorApp.Views.EditarAlumno" Shell.NavBarIsVisible="False" Appearing="ContentPage_Appearing"> 
     <ContentPage.Resources>
         <Style TargetType="Image" x:Key="Estilo1">
             <Setter Property="HeightRequest" Value="150"/>
@@ -49,58 +49,68 @@
     </ContentPage.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <Image Source="fondoAlumnos"/>
-            <Image Source="students.png" Style="{StaticResource Estilo1}"/>
+            <Grid Grid.Row="0">
+                <Image Source="fondoAlumnos"/>
+                <Image Source="students.png" Style="{StaticResource Estilo1}"/>
+            </Grid>
+
+            <Frame Grid.Row="1" Style="{StaticResource Estilo2}">
+                <StackLayout>
+                    <Label Text="Editar alumno" Style="{StaticResource Estilo3}"/>
+                    <Grid HeightRequest="300" Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Image Grid.Column="0" Grid.Row="0" Source="numCtrl.png"/>
+                        <Entry Grid.Column="1" Grid.Row="0" Text="{Binding Alumno.Clave}" 
+                           ClearButtonVisibility="WhileEditing"/>
+
+                        <Image Grid.Column="0" Grid.Row="1" Source="name.png"/>
+                        <Entry Grid.Column="1" Grid.Row="1" Text="{Binding Alumno.Nombre}"
+                           ClearButtonVisibility="WhileEditing"/>
+
+                        <Image Grid.Column="0" Grid.Row="2" Source="password.png"/>
+                        <Entry Grid.Column="1" Grid.Row="2" Text="{Binding Alumno.Password}" TextChanged="Entry_TextChanged"  x:Name="txtContraseña"
+                           IsPassword="True" ClearButtonVisibility="WhileEditing" Placeholder="Nueva Contraseña"/>
+
+                        <Image Grid.Column="0" Grid.Row="3" Source="password.png"/>
+                        <Entry Grid.Column="1" Grid.Row="3" Text="{Binding ContraseñaConfirmada}" IsEnabled="{Binding ConfirmarContraseñaEnabled}"
+                           IsPassword="True" ClearButtonVisibility="WhileEditing" Placeholder="Confirme la contraseña" x:Name="txtContraseña2"/>
+                    </Grid>
+
+                    <Label Text="{Binding MensajeError}" Style="{StaticResource Estilo4}"/>
+
+                    <Frame Style="{StaticResource Estilo5}">
+                        <Button Text="Guardar cambios" Command="{Binding EditarAlumnoCommand}" Style="{StaticResource Estilo6}"/>
+                    </Frame>
+                    <Frame Style="{StaticResource Estilo5}">
+                        <Button Text="Cancelar" Command="{Binding CancelarCommand}" Style="{StaticResource Estilo6}"/>
+                    </Frame>
+                </StackLayout>
+            </Frame>
         </Grid>
-
-        <Frame Grid.Row="1" Style="{StaticResource Estilo2}">
-            <StackLayout>
-                <Label Text="Editar alumno" Style="{StaticResource Estilo3}"/>
-
-                <Grid HeightRequest="300" Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-
-                    <Image Grid.Column="0" Grid.Row="0" Source="numCtrl.png"/>
-                    <Entry Grid.Column="1" Grid.Row="0" Text="161G0000" 
-                           ClearButtonVisibility="WhileEditing"/>
-
-                    <Image Grid.Column="0" Grid.Row="1" Source="name.png"/>
-                    <Entry Grid.Column="1" Grid.Row="1" Text="Nombre del alumno"
-                           ClearButtonVisibility="WhileEditing"/>
-
-                    <Image Grid.Column="0" Grid.Row="2" Source="password.png"/>
-                    <Entry Grid.Column="1" Grid.Row="2" Text="Contraseña" 
-                           IsPassword="True" ClearButtonVisibility="WhileEditing"/>
-
-                    <Image Grid.Column="0" Grid.Row="3" Source="password.png"/>
-                    <Entry Grid.Column="1" Grid.Row="3" Text="Contraseña"
-                           IsPassword="True" ClearButtonVisibility="WhileEditing"/>
-                </Grid>
-
-                <Label Text="Mensaje de error" Style="{StaticResource Estilo4}"/>
-
-                <Frame Style="{StaticResource Estilo5}">
-                    <Button Text="Guardar cambios" Style="{StaticResource Estilo6}"/>
-                </Frame>
+        <ContentView BackgroundColor="#c0ffffff" IsVisible="{Binding Visible}">
+            <StackLayout BackgroundColor="Transparent" VerticalOptions="Center" Padding="0,30">
+                <ActivityIndicator IsRunning="{Binding Cargando}"></ActivityIndicator>
+                <Label TextColor="Gray" Text="{Binding Mensaje}" HorizontalTextAlignment="Center"></Label>
             </StackLayout>
-        </Frame>
+        </ContentView>
     </Grid>
 </ContentPage>

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:local ="clr-namespace:DirectorApp.Views"
+             xmlns:vm="clr-namespace:DirectorApp.ViewModels"
+             xmlns:views="clr-namespace:DirectorApp.Views"
+             x:Class="DirectorApp.MainPage" FlyoutHeaderBehavior="Default" BackgroundColor="#00F2A3" Shell.NavBarHasShadow="False">
+    <Shell.BindingContext>
+        <vm:MainPageViewModel></vm:MainPageViewModel>
+    </Shell.BindingContext>
+    <Shell.Resources>
+        <Style TargetType="Grid" x:Key="Estilo1">
+            <Setter Property="HeightRequest" Value="250"/>
+            <Setter Property="BackgroundColor" Value="#67D127"/>
+        </Style>
+        <Style TargetType="Image" x:Key="Estilo2">
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Margin" Value="15"/>
+        </Style>
+        <Style TargetType="StackLayout" x:Key="Estilo3">
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+        </Style>
+        <Style TargetType="Image" x:Key="Estilo4">
+            <Setter Property="HeightRequest" Value="24"/>
+            <Setter Property="Margin" Value="15,10"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo5">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#404040"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Margin" Value="20,0"/>
+        </Style>
+    </Shell.Resources>
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid Style="{StaticResource Estilo1}">
+                <Image Source="escuela.png" Style="{StaticResource Estilo2}"/>
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+    <FlyoutItem Title="Cuenta" Icon="college.png">
+        <ShellContent ContentTemplate="{DataTemplate views:Cuenta}"></ShellContent>
+    </FlyoutItem>
+    <FlyoutItem Title="Alumnos" Icon="student.png">
+        <ShellContent ContentTemplate="{DataTemplate views:Alumnos}"></ShellContent>
+    </FlyoutItem>
+    <FlyoutItem Title="Maestros" Icon="teacher.png">
+        <ShellContent ContentTemplate="{DataTemplate views:Maestros}"></ShellContent>
+    </FlyoutItem>
+    <FlyoutItem Title="Grupos" Icon="team.png">
+        <ShellContent ContentTemplate="{DataTemplate views:Grupos}"></ShellContent>
+    </FlyoutItem>
+    <FlyoutItem Title="Clases" Icon="classroom.png">
+        <ShellContent ContentTemplate="{DataTemplate views:Clases}"></ShellContent>
+    </FlyoutItem>
+    <FlyoutItem Title="Mensajes" Icon="messages.png">
+        <ShellContent ContentTemplate="{DataTemplate views:Mensajes}"></ShellContent>
+    </FlyoutItem>
+    <MenuItem Text="Cerrar Sesión" IconImageSource="logout.png" Command="{Binding CerrarSesion}"></MenuItem>
+</Shell>

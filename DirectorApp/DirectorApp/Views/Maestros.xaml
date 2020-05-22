@@ -3,69 +3,85 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:DirectorApp.ViewModels"
              mc:Ignorable="d"
-             xmlns:viewmodel="clr-namespace:DirectorApp.ViewModels"
-             x:Class="DirectorApp.Views.Alumnos" Appearing="ContentPage_Appearing" x:Name="thisPage">
+             x:Class="DirectorApp.Views.Maestros" Appearing="ContentPage_Appearing" x:Name="thisPage">
     <ContentPage.BindingContext>
-        <viewmodel:AlumnosViewModel></viewmodel:AlumnosViewModel>
+        <vm:MaestrosViewModel></vm:MaestrosViewModel>
     </ContentPage.BindingContext>
     <ContentPage.Resources>
-        <Style TargetType="Frame" x:Key="Estilo1">
-            <Setter Property="WidthRequest" Value="300"/>
+        <Style TargetType="Image" x:Key="Estilo1">
+            <Setter Property="HeightRequest" Value="150"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="Estilo2">
+            <Setter Property="WidthRequest" Value="250"/>
             <Setter Property="CornerRadius" Value="10"/>
             <Setter Property="HasShadow" Value="True"/>
             <Setter Property="BackgroundColor" Value="#F5F5F5"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="TranslationY" Value="-55"/>
-            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Padding" Value="10"/>
         </Style>
-        <Style TargetType="Image" x:Key="Estilo2">
+        <Style TargetType="StackLayout" x:Key="Estilo3">
+            <Setter Property="Orientation" Value="Horizontal"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+        </Style>
+        <Style TargetType="Image" x:Key="Estilo4">
             <Setter Property="HeightRequest" Value="35"/>
-            <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            <Setter Property="HorizontalOptions" Value="Start"/>
             <Setter Property="VerticalOptions" Value="Center"/>
         </Style>
-        <Style TargetType="Label" x:Key="Estilo3">
+        <Style TargetType="Label" x:Key="Estilo5">
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="TextColor" Value="#000000"/>
-            <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
             <Setter Property="VerticalTextAlignment" Value="Center"/>
         </Style>
-        <Style TargetType="Label" x:Key="Estilo4">
+        <Style TargetType="Label" x:Key="Estilo6">
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontAttributes" Value="None"/>
             <Setter Property="TextColor" Value="#8B4F8B"/>
-            <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
             <Setter Property="VerticalTextAlignment" Value="Center"/>
         </Style>
-        <Style TargetType="ImageButton" x:Key="Estilo5">
+        <Style TargetType="StackLayout" x:Key="Estilo7">
+            <Setter Property="TranslationY" Value="-50"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="Estilo8">
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style TargetType="ImageButton" x:Key="Estilo9">
             <Setter Property="HeightRequest" Value="50"/>
             <Setter Property="CornerRadius" Value="25"/>
             <Setter Property="BackgroundColor" Value="Transparent"/>
         </Style>
-        <Style TargetType="Label" x:Key="Estilo6">
+        <Style TargetType="Label" x:Key="Estilo10">
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontSize" Value="15"/>
-            <Setter Property="FontAttributes" Value="None"/>
             <Setter Property="HorizontalTextAlignment" Value="Center"/>
             <Setter Property="Margin" Value="10"/>
         </Style>
-        <Style TargetType="Frame" x:Key="Estilo7">
+        <Style TargetType="Frame" x:Key="Estilo11">
             <Setter Property="CornerRadius" Value="5"/>
             <Setter Property="HasShadow" Value="True"/>
             <Setter Property="BackgroundColor" Value="#F5F5F5"/>
             <Setter Property="Padding" Value="10"/>
             <Setter Property="Margin" Value="10,0"/>
         </Style>
-        <Style TargetType="Label" x:Key="Estilo8">
+        <Style TargetType="Label" x:Key="Estilo12">
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="TextColor" Value="#000000"/>
         </Style>
-        <Style TargetType="Label" x:Key="Estilo9">
+        <Style TargetType="Label" x:Key="Estilo13">
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="FontAttributes" Value="None"/>
@@ -76,44 +92,53 @@
     <Grid>
         <ScrollView>
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="200"/>
                     <RowDefinition Height="100"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-
-                <StackLayout Grid.Row="2" TranslationY="-55" Padding="10">
+                <Grid Grid.Row="0">
+                    <Image Aspect="Fill" Source="fondoAlumnos.png" VerticalOptions="Start"/>
+                    <Image Source="utiles.png" Style="{StaticResource Estilo1}"/>
+                </Grid>
+                <Frame Grid.Row="1" Style="{StaticResource Estilo2}">
+                    <StackLayout>
+                        <StackLayout Style="{StaticResource Estilo3}">
+                            <Image Source="college.png" Style="{StaticResource Estilo4}"/>
+                            <Label Text="Nombre de la Escuela" Style="{StaticResource Estilo5}"/>
+                        </StackLayout>
+                        <StackLayout Style="{StaticResource Estilo3}">
+                            <Image Source="teacher.png" Style="{StaticResource Estilo4}"/>
+                            <Label Text="{Binding TotalMaestros, StringFormat='{000} maestros'}" Style="{StaticResource Estilo6}"/>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+                <StackLayout Grid.Row="2" Style="{StaticResource Estilo7}">
                     <StackLayout Orientation="Horizontal">
-                        <SearchBar x:Name="txtBuscar" TextChanged="txtBuscar_TextChanged" Placeholder="Buscar por nombre"/>
-                        <Frame CornerRadius="25" HasShadow="True" Padding="0">
-                            <ImageButton Command="{Binding AbrirAgregarAlumnoCommand}" Source="addStudent.png" Style="{StaticResource Estilo5}"/>
+                        <SearchBar x:Name="txtBuscar" Placeholder="Buscar maestro" Margin="0" TextChanged="txtBuscar_TextChanged"/>
+                        <Frame Style="{StaticResource Estilo8}">
+                            <ImageButton Source="addStudent.png" Command="{Binding AbrirAgregarMaestroCommand}" Style="{StaticResource Estilo9}"/>
                         </Frame>
                     </StackLayout>
-                    <Label Text="Deslice el dedo hacia la izquierda para más opciones" Style="{StaticResource Estilo6}"/>
 
-                    <CollectionView ItemsSource="{Binding ListaAlumnos}">
+                    <Label Text="Deslice hacia la izquierda para más opciones" Style="{StaticResource Estilo10}"/>
+
+                    <CollectionView ItemsSource="{Binding ListaMaestros}">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout Span="1" VerticalItemSpacing="15" Orientation="Vertical"/>
                         </CollectionView.ItemsLayout>
-
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Frame Style="{StaticResource Estilo7}">
+                                <Frame Style="{StaticResource Estilo11}">
                                     <SwipeView>
                                         <SwipeView.RightItems>
-                                            <SwipeItems>
-                                                <SwipeItem IconImageSource="delete.png" Command="{Binding Source={x:Reference thisPage},Path=BindingContext.EliminarCommand}" CommandParameter="{Binding IdAlumno}" BackgroundColor="#F5F5F5"/>
-                                                <SwipeItem Command="{Binding Source={x:Reference thisPage},Path=BindingContext.AbrirEditarAlumnoCommand}" CommandParameter="{Binding IdAlumno}" IconImageSource="edit.png" BackgroundColor="#F5F5F5"/>
-                                                <SwipeItem IconImageSource="see.png" BackgroundColor="#F5F5F5"/>
-                                            </SwipeItems>
+                                            <SwipeItem IconImageSource="delete.png" Command="{Binding Source={x:Reference thisPage},Path=BindingContext.EliminarCommand}" CommandParameter="{Binding IdMaestro}" BackgroundColor="#F5F5F5"/>
+                                            <SwipeItem IconImageSource="edit.png" BackgroundColor="#F5F5F5"/>
+                                            <SwipeItem IconImageSource="see.png" Command="{Binding Source={x:Reference thisPage},Path=BindingContext.VerCommand}" CommandParameter="{Binding IdMaestro}" BackgroundColor="#F5F5F5"/>
                                         </SwipeView.RightItems>
-
                                         <StackLayout BackgroundColor="#F5F5F5">
-                                            <Label Text="{Binding Nombre}" Style="{StaticResource Estilo8}"/>
-                                            <Label Text="{Binding Clave}" Style="{StaticResource Estilo9}"/>
+                                            <Label Text="{Binding Nombre}" Style="{StaticResource Estilo12}"/>
+                                            <Label Text="{Binding Clave}" Style="{StaticResource Estilo13}"/>
                                         </StackLayout>
                                     </SwipeView>
                                 </Frame>
@@ -121,24 +146,6 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </StackLayout>
-
-                <Grid Grid.Row="0">
-                    <Image Aspect="Fill" Source="fondoAlumnos" VerticalOptions="Start"/>
-                    <Image HeightRequest="150" HorizontalOptions="Center" Source="utiles.png"/>
-                </Grid>
-
-                <Frame Grid.Row="1" Style="{StaticResource Estilo1}">
-                    <StackLayout Padding="0">
-                        <StackLayout Orientation="Horizontal" HeightRequest="40" Margin="4">
-                            <Image Source="college.png" Style="{StaticResource Estilo2}"/>
-                            <Label Text="{Binding Escuela.Nombre}" Style="{StaticResource Estilo3}"/>
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal" HeightRequest="40" Margin="4,0">
-                            <Image Source="student.png" Style="{StaticResource Estilo2}"/>
-                            <Label Text="{Binding TotalAlumnos, StringFormat='{0} estudiantes'}" Style="{StaticResource Estilo4}"/>
-                        </StackLayout>
-                    </StackLayout>
-                </Frame>
             </Grid>
         </ScrollView>
         <ContentView BackgroundColor="#c0ffffff" IsVisible="{Binding Visible}">

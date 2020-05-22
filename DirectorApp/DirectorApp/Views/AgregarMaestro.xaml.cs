@@ -11,14 +11,20 @@ using Xamarin.Forms.Xaml;
 namespace DirectorApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AgregarAlumno : ContentPage
+    public partial class AgregarMaestro : ContentPage
     {
-        public AgregarAlumno()
+        public AgregarMaestro()
         {
             InitializeComponent();
         }
 
-        private void txtContraseña_TextChanged(object sender, TextChangedEventArgs e)
+        MaestrosViewModel vm;
+        private void ContentPage_Appearing(object sender, EventArgs e)
+        {
+            vm = this.BindingContext as MaestrosViewModel;
+        }
+
+        private void Entry_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtContraseña.Text))
             {
@@ -29,12 +35,6 @@ namespace DirectorApp.Views
             {
                 vm.HabilitarBotonCommand.Execute(true);
             }
-        }
-
-        AlumnosViewModel vm;
-        private void ContentPage_Appearing(object sender, EventArgs e)
-        {
-            vm = this.BindingContext as AlumnosViewModel;
         }
     }
 }

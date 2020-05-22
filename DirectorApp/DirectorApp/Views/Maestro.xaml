@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DirectorApp.Views.Maestro">
+    <ContentPage.Resources>
+        <Style TargetType="Image" x:Key="Estilo1">
+            <Setter Property="HeightRequest" Value="60"/>
+            <Setter Property="Margin" Value="10,25,10,5"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo2">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#000000"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10,0"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo3">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="23"/>
+            <Setter Property="TextColor" Value="#F5F5F5"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10,0"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="Estilo4">
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
+            <Setter Property="Margin" Value="30,0"/>
+            <Setter Property="TranslationY" Value="15"/>
+        </Style>
+        <Style TargetType="ImageButton" x:Key="Estilo5">
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="Estilo6">
+            <Setter Property="CornerRadius" Value="30"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="Padding" Value="25"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo7">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="23"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#000000"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo8">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="0,0,0,25"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="Estilo9">
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="BackgroundColor" Value="#F5F5F5"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo10">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#000000"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo11">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="15"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Frame Grid.Row="1" Style="{StaticResource Estilo6}">
+                <StackLayout>
+                    <Label Text="Institución" Style="{StaticResource Estilo7}"/>
+                    <Label Text="{Binding Escuela.Nombre}" Style="{StaticResource Estilo8}"/>
+
+                    <Label Text="Fecha de registro" Style="{StaticResource Estilo7}"/>
+                    <Label Text="{Binding Maestro.FechaRegistro, StringFormat='{0:MMMM d, yyyy}'}" Style="{StaticResource Estilo8}"/>
+
+                    <Label Text="Grupo(s) a su cargo" Style="{StaticResource Estilo7}"/>
+                    <ScrollView>
+                        <CollectionView>
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Span="1" VerticalItemSpacing="15" Orientation="Horizontal"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Style="{StaticResource Estilo9}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="70"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0" BackgroundColor="#67D127">
+                                                <Image Source="grupo.png" Margin="10"/>
+                                            </Grid>
+                                            <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                                <Label Text="Nombre del grupo" Style="{StaticResource Estilo10}"/>
+                                                <Label Text="2019 - 2020" Style="{StaticResource Estilo11}"/>
+                                            </StackLayout>
+                                        </Grid>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </ScrollView>
+                </StackLayout>
+            </Frame>
+            <StackLayout Grid.Row="0">
+                <Image Source="teacher.png" Style="{StaticResource Estilo1}"/>
+                <Label Text="{Binding Maestro.Nombre}" Style="{StaticResource Estilo2}"/>
+                <Label Text="{Binding Maestro.Clave}" Style="{StaticResource Estilo3}"/>
+                <Frame Style="{StaticResource Estilo4}">
+                    <ImageButton Source="editAccount.png" Style="{StaticResource Estilo5}"/>
+                </Frame>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

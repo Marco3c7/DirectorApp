@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DirectorApp.Views.EditarClase">
+    <ContentPage.Resources>
+        <Style TargetType="StackLayout" x:Key="Estilo1">
+            <Setter Property="HeightRequest" Value="70"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+        </Style>
+        <Style TargetType="Image" x:Key="Estilo2">
+            <Setter Property="HeightRequest" Value="70"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Start"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo3">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#000000"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo4">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#000000"/>
+            <Setter Property="Margin" Value="10,20,10,0"/>
+        </Style>
+        <Style TargetType="Picker" x:Key="Estilo5">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="TextColor" Value="#000000"/>
+            <Setter Property="Margin" Value="10,0"/>
+        </Style>
+        <Style TargetType="DatePicker" x:Key="Estilo6">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="TextColor" Value="#000000"/>
+            <Setter Property="Format" Value="dd/MM/yyyy"/>
+            <Setter Property="Margin" Value="10,0"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo7">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="TextColor" Value="#FF0000"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10,25"/>
+        </Style>
+        <Style TargetType="StackLayout" x:Key="Estilo8">
+            <Setter Property="HeightRequest" Value="70"/>
+            <Setter Property="WidthRequest" Value="345"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+            <Setter Property="VerticalOptions" Value="End"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="Estilo9">
+            <Setter Property="WidthRequest" Value="160"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0,10"/>
+        </Style>
+        <Style TargetType="Button" x:Key="Estilo10">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#F5F5F5"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BackgroundColor" Value="#00F2A3"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="Estilo11">
+            <Setter Property="WidthRequest" Value="170"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="15,10,0,10"/>
+        </Style>
+        <Style TargetType="Button" x:Key="Estilo12">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#F5F5F5"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BackgroundColor" Value="#82C02F"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0">
+                <StackLayout Style="{StaticResource Estilo1}">
+                    <Image Source="classroom.png" Style="{StaticResource Estilo2}"/>
+                    <Label Text="Editar una clase" Style="{StaticResource Estilo3}"/>
+                </StackLayout>
+
+                <Label Text="Grupo:" Style="{StaticResource Estilo4}"/>
+                <Picker Title="Seleccione un grupo" Style="{StaticResource Estilo5}"/>
+
+                <Label Text="Maestro:" Style="{StaticResource Estilo4}"/>
+                <Picker Title="Seleccione un maestro" Style="{StaticResource Estilo5}"/>
+
+                <Label Text="Alumno:" Style="{StaticResource Estilo4}"/>
+                <Picker Title="Seleccione un alumno" Style="{StaticResource Estilo5}"/>
+
+                <Label Text="Fecha de registro:" Style="{StaticResource Estilo4}"/>
+                <DatePicker Style="{StaticResource Estilo6}"/>
+
+                <Label Text="Mensaje de error" Style="{StaticResource Estilo7}"/>
+            </StackLayout>
+
+
+            <StackLayout Grid.Row="1" Style="{StaticResource Estilo8}">
+                <Frame Style="{StaticResource Estilo9}">
+                    <Button Text="Cancelar" Style="{StaticResource Estilo10}"/>
+                </Frame>
+                <Frame Style="{StaticResource Estilo11}">
+                    <Button Text="Guardar cambios" Style="{StaticResource Estilo12}"/>
+                </Frame>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

@@ -11,13 +11,21 @@ using Xamarin.Forms.Xaml;
 namespace DirectorApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Alumnos : ContentPage
+    public partial class Grupos : ContentPage
     {
-        AlumnosViewModel vm;
-        public Alumnos()
+        GruposViewModel vm;
+        public Grupos()
         {
             InitializeComponent();
-            vm = this.BindingContext as AlumnosViewModel;
+            vm = this.BindingContext as GruposViewModel;
+        }
+
+        private void ContentPage_Appearing(object sender, EventArgs e)
+        {
+            if (vm != null)
+            {
+                vm.DescargarCommand.Execute(null);
+            }
         }
 
         private void txtBuscar_TextChanged(object sender, TextChangedEventArgs e)
@@ -35,14 +43,6 @@ namespace DirectorApp.Views
                 {
                     vm.DescargarCommand.Execute(null);
                 }
-            }
-        }
-
-        private void ContentPage_Appearing(object sender, EventArgs e)
-        {
-            if (vm != null)
-            {
-                vm.DescargarCommand.Execute(null);
             }
         }
     }

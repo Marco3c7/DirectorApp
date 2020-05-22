@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DirectorApp.Views.AgregarMaestro" Appearing="ContentPage_Appearing" Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <Style TargetType="Frame" x:Key="Estilo1">
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="BackgroundColor" Value="#F5F5F5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="15"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo2">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#000000"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10,10,10,0"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo3">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="TextColor" Value="#FF0000"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="Estilo4">
+            <Setter Property="WidthRequest" Value="225"/>
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+        </Style>
+        <Style TargetType="Button" x:Key="Estilo5">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#F5F5F5"/>
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="BackgroundColor" Value="#82C02F"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Image Source="fondoAlumnos.png" VerticalOptions="Start"/>
+                    <Image Source="maestro.png" VerticalOptions="Center"/>
+                </Grid>
+
+                <Frame Grid.Row="1" Style="{StaticResource Estilo1}">
+                    <StackLayout>
+                        <Label Text="Registrar maestro" Style="{StaticResource Estilo2}"/>
+
+                        <Grid HeightRequest="250" Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Image Grid.Column="0" Grid.Row="0" Source="numCtrl.png"/>
+                            <Entry Grid.Column="1" Grid.Row="0" Placeholder="Clave de docente" Text="{Binding Maestro.Clave}"
+                           ClearButtonVisibility="WhileEditing"/>
+
+                            <Image Grid.Column="0" Grid.Row="1" Source="name.png" Margin="1"/>
+                            <Entry Grid.Column="1" Grid.Row="1" Placeholder="Nombre" Text="{Binding Maestro.Nombre}"
+                           ClearButtonVisibility="WhileEditing"/>
+
+                            <Image Grid.Column="0" Grid.Row="2" Source="password.png"/>
+                            <Entry Grid.Column="1" Grid.Row="2" Placeholder="Contraseña" Text="{Binding Maestro.Password}" TextChanged="Entry_TextChanged" x:Name="txtContraseña"
+                           IsPassword="True" ClearButtonVisibility="WhileEditing"/>
+
+                            <Image Grid.Column="0" Grid.Row="3" Source="password.png"/>
+                            <Entry Grid.Column="1" Grid.Row="3" Placeholder="Confirme la contraseña" Text="{Binding ContraseñaConfirmada}" x:Name="txtContraseña2" IsEnabled="{Binding ConfirmarContraseñaEnabled}"
+                           IsPassword="True" ClearButtonVisibility="WhileEditing"/>
+                        </Grid>
+
+                        <Label Text="{Binding MensajeError}" Style="{StaticResource Estilo3}"/>
+
+                        <Frame Style="{StaticResource Estilo4}">
+                            <Button Text="Registrar" Command="{Binding AgregarMaestroCommand}" Style="{StaticResource Estilo5}"/>
+                        </Frame>
+                        <Frame Style="{StaticResource Estilo4}">
+                            <Button Text="Cancelar" Command="{Binding CancelarCommand}" Style="{StaticResource Estilo5}"/>
+                        </Frame>
+                    </StackLayout>
+                </Frame>
+            </Grid>
+        </ScrollView>
+        <ContentView BackgroundColor="#c0ffffff" IsVisible="{Binding Visible}">
+            <StackLayout BackgroundColor="Transparent" VerticalOptions="Center" Padding="0,30">
+                <ActivityIndicator IsRunning="{Binding Cargando}"></ActivityIndicator>
+                <Label TextColor="Gray" Text="{Binding Mensaje}" HorizontalTextAlignment="Center"></Label>
+            </StackLayout>
+        </ContentView>
+    </Grid>
+</ContentPage>

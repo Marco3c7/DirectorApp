@@ -4,7 +4,11 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="DirectorApp.Views.Cuenta">
+             xmlns:vm="clr-namespace:DirectorApp.ViewModels"
+             x:Class="DirectorApp.Views.Cuenta" NavigationPage.HasNavigationBar="False" Appearing="ContentPage_Appearing">
+    <ContentPage.BindingContext>
+        <vm:CuentaViewModel></vm:CuentaViewModel>
+    </ContentPage.BindingContext>
     <ContentPage.Resources>
         <Style TargetType="Image" x:Key="Estilo1">
             <Setter Property="HeightRequest" Value="50"/>
@@ -70,10 +74,10 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <Image Source="fondoCuenta.png" VerticalOptions="Start"/>
+            <Image Aspect="Fill" Source="fondoCuenta.png" VerticalOptions="Start"/>
             <StackLayout Orientation="Horizontal" Margin="30,20,30,50">
                 <Image Source="college.png" Style="{StaticResource Estilo1}"/>
-                <Label Text="Nombre de la institución" Style="{StaticResource Estilo2}"/>
+                <Label Text="{Binding Escuela.Nombre}" Style="{StaticResource Estilo2}"/>
             </StackLayout>
         </Grid>
 
@@ -90,30 +94,30 @@
                 </Grid.RowDefinitions>
 
                 <Image Grid.Column="0" Grid.Row="0" Source="student.png" HorizontalOptions="End"/>
-                <Label Grid.Column="1" Grid.Row="0" Text="000 estudiantes" Style="{StaticResource Estilo4}"/>
+                <Label Grid.Column="1" Grid.Row="0" Text="{Binding TotalAlumnos, StringFormat='{0} estudiantes'}" Style="{StaticResource Estilo4}"/>
 
                 <Image Grid.Column="0" Grid.Row="1" Source="teacher.png" HorizontalOptions="End"/>
-                <Label Grid.Column="1" Grid.Row="1" Text="000 maestros" Style="{StaticResource Estilo4}"/>
+                <Label Grid.Column="1" Grid.Row="1" Text="{Binding TotalMaestros, StringFormat='{0} maestros'}" Style="{StaticResource Estilo4}"/>
 
                 <Image Grid.Column="0" Grid.Row="2" Source="team.png" HorizontalOptions="End"/>
-                <Label Grid.Column="1" Grid.Row="2" Text="000 grupos" Style="{StaticResource Estilo4}"/>
+                <Label Grid.Column="1" Grid.Row="2" Text="{Binding TotalGrupos, StringFormat='{0} grupos'}" Style="{StaticResource Estilo4}"/>
             </Grid>
         </Frame>
 
         <StackLayout Grid.Row="2" TranslationY="-30" Margin="15" >
             <StackLayout Margin="20,0,20,20">
                 <Label Text="Nombre del administrador" Style="{StaticResource Estilo5}"/>
-                <Label Text="Nombre del director" Style="{StaticResource Estilo6}"/>
+                <Label Text="{Binding Escuela.NombreAdmin}" Style="{StaticResource Estilo6}"/>
             </StackLayout>
 
             <StackLayout Margin="20,0">
                 <Label Text="Fecha de registro" Style="{StaticResource Estilo5}"/>
-                <Label Text="01/01/2020" Style="{StaticResource Estilo6}"/>
+                <Label Text="{Binding Escuela.FechaRegistro, StringFormat='{0:MMMM d, yyyy}'}" Style="{StaticResource Estilo6}"/>
             </StackLayout>
         </StackLayout>
 
         <Frame Grid.Row="3" Style="{StaticResource Estilo7}">
-            <ImageButton Source="editAccount.png" Style="{StaticResource Estilo8}"/>
+            <ImageButton Command="{Binding AbrirEditarCommand}" Source="editAccount.png" Style="{StaticResource Estilo8}"/>
         </Frame>
     </Grid>
 </ContentPage>

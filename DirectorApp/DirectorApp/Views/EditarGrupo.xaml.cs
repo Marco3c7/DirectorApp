@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using DirectorApp.ViewModels;
 
 namespace DirectorApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Login : ContentPage
+    public partial class EditarGrupo : ContentPage
     {
-        public Login()
+        public EditarGrupo()
         {
             InitializeComponent();
         }

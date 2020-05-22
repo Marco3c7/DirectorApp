@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DirectorApp.Views.EditarGrupo">
+    <ContentPage.Resources>
+        <Style TargetType="Frame" x:Key="Estilo1">
+            <Setter Property="HeightRequest" Value="80"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="BackgroundColor" Value="#2AE2A4"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style TargetType="Image" x:Key="Estilo2">
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="Margin" Value="15"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo3">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#FFFFFF"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo4">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#000000"/>
+        </Style>
+        <Style TargetType="Entry" x:Key="Estilo5">
+            <Setter Property="HeightRequest" Value="40"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="ClearButtonVisibility" Value="WhileEditing"/>
+        </Style>
+        <Style TargetType="DatePicker" x:Key="Estilo6">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="TextColor" Value="#000000"/>
+            <Setter Property="Format" Value="dd/MM/yyyy"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Estilo7">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="TextColor" Value="#FF0000"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="Estilo8">
+            <Setter Property="WidthRequest" Value="200"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="VerticalOptions" Value="EndAndExpand"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
+        </Style>
+        <Style TargetType="Button" x:Key="Estilo9">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#F5F5F5"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BackgroundColor" Value="#82C02F"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout Margin="15">
+            <Frame Style="{StaticResource Estilo1}">
+                <StackLayout Orientation="Horizontal">
+                    <Image Source="teams.png" Style="{StaticResource Estilo2}"/>
+                    <Label Text="Editar grupo" Style="{StaticResource Estilo3}"/>
+                </StackLayout>
+            </Frame>
+
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <StackLayout Grid.Row="0">
+                    <Label Text="Nombre:" Style="{StaticResource Estilo4}"/>
+                    <Entry Text="6 'A'" Style="{StaticResource Estilo5}"/>
+                </StackLayout>
+                <StackLayout Grid.Row="1">
+                    <Label Text="Ciclo Escolar:" Style="{StaticResource Estilo4}"/>
+                    <Entry Text="Agosto 2019 - Julio 2020" Style="{StaticResource Estilo5}"/>
+                </StackLayout>
+                <StackLayout Grid.Row="2">
+                    <Label Text="Fecha de registro:" Style="{StaticResource Estilo4}"/>
+                    <DatePicker Style="{StaticResource Estilo6}"/>
+                </StackLayout>
+                <Label Grid.Row="3" Text="Mensaje de error" Style="{StaticResource Estilo7}"/>
+                <StackLayout Grid.Row="4" HeightRequest="250">
+                    <Frame Style="{StaticResource Estilo8}">
+                        <Button Text="Guardar cambios" Style="{StaticResource Estilo9}"/>
+                    </Frame>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
