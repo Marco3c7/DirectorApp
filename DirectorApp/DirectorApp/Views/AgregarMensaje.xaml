@@ -68,34 +68,42 @@
         </Style>
     </ContentPage.Resources>
 
-    <StackLayout Margin="15">
-        <Frame Style="{StaticResource Estilo1}">
-            <StackLayout Orientation="Horizontal">
+    <Grid>
+        <StackLayout Margin="15">
+            <Frame Style="{StaticResource Estilo1}">
                 <StackLayout Orientation="Horizontal">
-                    <Image Source="mail.png" Style="{StaticResource Estilo2}"/>
-                    <Label Text="Publicar un aviso" Style="{StaticResource Estilo3}"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Image Source="mail.png" Style="{StaticResource Estilo2}"/>
+                        <Label Text="Publicar un aviso" Style="{StaticResource Estilo3}"/>
+                    </StackLayout>
                 </StackLayout>
+            </Frame>
+
+            <StackLayout>
+                <Frame Style="{StaticResource Estilo7}">
+                    <StackLayout>
+                        <Label Text="Asunto" Style="{StaticResource Estilo4}"/>
+                        <Editor Text="{Binding AvisoGeneral.Titulo}" Style="{StaticResource Estilo5}"/>
+                    </StackLayout>
+                </Frame>
+
+                <Frame Style="{StaticResource Estilo7}">
+                    <StackLayout>
+                        <Label Text="Contenido" Style="{StaticResource Estilo4}"/>
+                        <Editor Text="{Binding AvisoGeneral.Contenido}" Style="{StaticResource Estilo6}"/>
+                    </StackLayout>
+                </Frame>
+
+                <Frame Style="{StaticResource Estilo8}">
+                    <ImageButton Source="send.png" Command="{Binding EnviarMensajeCommand}" Style="{StaticResource Estilo9}"/>
+                </Frame>
             </StackLayout>
-        </Frame>
-
-        <StackLayout>
-            <Frame Style="{StaticResource Estilo7}">
-                <StackLayout>
-                    <Label Text="Asunto" Style="{StaticResource Estilo4}"/>
-                    <Editor Style="{StaticResource Estilo5}"/>
-                </StackLayout>
-            </Frame>
-
-            <Frame Style="{StaticResource Estilo7}">
-                <StackLayout>
-                    <Label Text="Contenido" Style="{StaticResource Estilo4}"/>
-                    <Editor Style="{StaticResource Estilo6}"/>
-                </StackLayout>
-            </Frame>
-
-            <Frame Style="{StaticResource Estilo8}">
-                <ImageButton Source="send.png" Style="{StaticResource Estilo9}"/>
-            </Frame>
         </StackLayout>
-    </StackLayout>
+        <ContentView BackgroundColor="#c0ffffff" IsVisible="{Binding Visible}">
+            <StackLayout BackgroundColor="Transparent" VerticalOptions="Center" Padding="0,30">
+                <ActivityIndicator IsRunning="{Binding Cargando}"></ActivityIndicator>
+                <Label TextColor="Gray" Text="{Binding Mensaje}" HorizontalTextAlignment="Center"></Label>
+            </StackLayout>
+        </ContentView>
+    </Grid>
 </ContentPage>

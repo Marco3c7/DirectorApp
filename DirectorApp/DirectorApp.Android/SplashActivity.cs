@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace DirectorApp.Droid
 {
-    [Activity(Label = "DirectorApp", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]
+    [Activity(Label = "DirectorApp", Icon = "@mipmap/icon", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]
     public class SplashActivity : AppCompatActivity
     {
         static readonly string TAG = "X:" + typeof(SplashActivity).Name;

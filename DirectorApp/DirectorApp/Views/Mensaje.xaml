@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="DirectorApp.Views.Mensaje">
+             x:Class="DirectorApp.Views.Mensaje" Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
         <Style TargetType="Label" x:Key="Estilo1">
             <Setter Property="FontFamily" Value="Segoe UI"/>
@@ -64,22 +64,22 @@
                 <Image Source="info.png" HeightRequest="30"/>
                 <Label Text="Aviso" Style="{StaticResource Estilo1}"/>
             </StackLayout>
-            <Label Text="Suspensión de clases" Style="{StaticResource Estilo2}"/>
+            <Label Text="{Binding Titulo}" Style="{StaticResource Estilo2}"/>
         </StackLayout>
 
         <StackLayout Grid.Row="1" Margin="20">
             <StackLayout Orientation="Horizontal">
                 <Label Text="Fecha:" Style="{StaticResource Estilo3}"/>
-                <Label Text="16/03/2020" Style="{StaticResource Estilo4}"/>
+                <Label Text="{Binding FechaEnviado, StringFormat='{0:MMMM d, yyyy}'}" Style="{StaticResource Estilo4}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Fecha de caducidad:" Style="{StaticResource Estilo3}"/>
-                <Label Text="16/06/2020" Style="{StaticResource Estilo4}"/>
+                <Label Text="{Binding FechaCaducidad, StringFormat='{0:MMMM d, yyyy}'}" Style="{StaticResource Estilo4}"/>
             </StackLayout>
 
             <Label Text="Contenido:" Style="{StaticResource Estilo5}"/>
             <Frame Style="{StaticResource Estilo6}">
-                <Label Text="Por este medio se les comunica a docentes y alumnos que habrá suspensión de clases el día 16 de Marzo del presente año."
+                <Label Text="{Binding Contenido}"
                        Style="{StaticResource Estilo7}"/>
             </Frame>
         </StackLayout>

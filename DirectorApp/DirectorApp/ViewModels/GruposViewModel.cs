@@ -63,7 +63,9 @@ namespace DirectorApp.ViewModels
         public Command AbrirAgregarCommand { get; set; }
         public Command AgregarGrupoCommand { get; set; }
         public Command CancelarCommand { get; set; }
+        public Command<int> AbrirEditarCommand { get; set; }
         public Command<int> EliminarCommand { get; set; }
+        public Command EditarCommand { get; set; }
         public Grupo Grupo { get; set; }
         public GruposViewModel()
         {
@@ -74,6 +76,86 @@ namespace DirectorApp.ViewModels
             AgregarGrupoCommand = new Command(AgregarGrupo);
             CancelarCommand = new Command(Cancelar);
             EliminarCommand = new Command<int>(Eliminar);
+            AbrirEditarCommand = new Command<int>(AbrirEditar);
+            EditarCommand = new Command(EditarGrupoCommand);
+        }
+
+        private async void EditarGrupoCommand()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                try
+                {
+                    Visible = true;
+                    Cargando = true;
+                    Mensaje = "Cargando...";
+                    MensajeError = "";
+                    if (Grupo != null)
+                    {
+                        Validar();
+
+                        HttpClient client = new HttpClient();
+                        Grupo.IdEscuela = App.AvisosPrimaria.GetDatosEscuela().IdEscuela;
+
+                        var grupo = new Dictionary<string, string>()
+                    {
+                            {"idGrupo",Grupo.IdGrupo.ToString() },
+                            {"Nombre", Grupo.Nombre },
+                            {"CicloEscolar", Grupo.CicloEscolar },
+                            { "idEscuela",Grupo.IdEscuela.ToString()}
+                    };
+                        var resp = await client.PostAsync("http://avisosprimaria.itesrc.net/api/AdminApp/updategrupo/", new FormUrlEncodedContent(grupo));
+                        if (resp.IsSuccessStatusCode)
+                        {
+                            App.AvisosPrimaria.Connection.Update(Grupo);
+                            App.AvisosPrimaria.ShowSnackBar("El grupo se ha editado correctamente.");
+                            await App.Current.MainPage.Navigation.PopAsync();
+                            Descargar();
+                        }
+                        else
+                        {
+                            var error = await resp.Content.ReadAsStringAsync();
+                            if (string.IsNullOrWhiteSpace(error))
+                            {
+                                throw new Exception("Ha ocurrido un error con el servidor, intente más tarde.");
+                            }
+                            else
+                            {
+                                throw new Exception(error);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MensajeError = "Escriba los datos del alumno";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Visible = false;
+                    Cargando = false;
+                    Mensaje = "";
+                    MensajeError = ex.Message;
+                }
+            }
+            else
+            {
+                MensajeError = "Error de conexión de red";
+            }
+        }
+
+        EditarGrupo editarPage;
+        private void AbrirEditar(int obj)
+        {
+            if (editarPage == null)
+            {
+                editarPage = new EditarGrupo();
+            }
+            Grupo = App.AvisosPrimaria.Connection.Table<Grupo>().Where(x => x.IdGrupo == obj).FirstOrDefault();
+            MensajeError = "";
+            editarPage.BindingContext = null;
+            editarPage.BindingContext = this;
+            App.Current.MainPage.Navigation.PushAsync(editarPage);
         }
 
         private async void Eliminar(int obj)
@@ -100,7 +182,7 @@ namespace DirectorApp.ViewModels
                                 Cargando = false;
                                 Mensaje = "";
                                 App.AvisosPrimaria.Connection.Delete(g);
-                                await App.Current.MainPage.DisplayAlert("Eliminar Grupo", $"El grupo: {g.Nombre}, se ha eliminado correctamente", "Aceptar");
+                                App.AvisosPrimaria.ShowSnackBar($"El grupo: {g.Nombre}, se ha eliminado correctamente");
                                 Descargar();
                             }
                             else
@@ -159,6 +241,7 @@ namespace DirectorApp.ViewModels
                         if (resp.IsSuccessStatusCode)
                         {
                             await App.Current.MainPage.DisplayAlert("Agregar Grupo", "El grupo se ha registrado correctamente.", "Aceptar");
+                            App.AvisosPrimaria.ShowSnackBar("El grupo se ha registrado correctamente.");
                             await App.Current.MainPage.Navigation.PopAsync();
                             Descargar();
                         }
@@ -242,7 +325,7 @@ namespace DirectorApp.ViewModels
                         if (resp.IsSuccessStatusCode)
                         {
                             ListaGrupos = JsonConvert.DeserializeObject<List<Grupo>>(await resp.Content.ReadAsStringAsync());
-
+                            App.AvisosPrimaria.Connection.DeleteAll<Grupo>();
                             if (listaGrupos.Count > 0)
                             {
                                 foreach (var item in ListaGrupos)

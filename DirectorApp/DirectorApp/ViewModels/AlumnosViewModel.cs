@@ -18,7 +18,6 @@ namespace DirectorApp.ViewModels
     public class AlumnosViewModel : INotifyPropertyChanged
     {
         private List<Alumno> listaAlumnos;
-
         public List<Alumno> ListaAlumnos
         {
             get { return listaAlumnos; }
@@ -109,7 +108,7 @@ namespace DirectorApp.ViewModels
                 a = App.AvisosPrimaria.Connection.Table<Alumno>().Where(x => x.IdAlumno == obj).FirstOrDefault();
                 if (a != null)
                 {
-                    bool answer = await App.Current.MainPage.DisplayAlert("Eliminar Alumno", $"¿Está seguro que desea eliminar al alumno: {a.Nombre}", "Aceptar", "Cancelar");
+                    bool answer = await App.Current.MainPage.DisplayAlert("Eliminar Alumno", $"¿Está seguro que desea eliminar al alumno: {a.Nombre}?", "Aceptar", "Cancelar");
                     if (answer)
                     {
                         if (Connectivity.NetworkAccess == NetworkAccess.Internet)
@@ -125,7 +124,7 @@ namespace DirectorApp.ViewModels
                                 Cargando = false;
                                 Mensaje = "";
                                 App.AvisosPrimaria.Connection.Delete(a);
-                                await App.Current.MainPage.DisplayAlert("Eliminar Alumno", $"El alumno: {a.Nombre}, se ha eliminado correctamente?", "Aceptar");
+                                App.AvisosPrimaria.ShowSnackBar($"El alumno: {a.Nombre}, se ha eliminado correctamente");
                                 Descargar();
                             }
                             else
@@ -195,6 +194,7 @@ namespace DirectorApp.ViewModels
                         {
                             ListaAlumnos = JsonConvert.DeserializeObject<List<Alumno>>(await resp.Content.ReadAsStringAsync());
 
+                            App.AvisosPrimaria.Connection.DeleteAll<Alumno>();
                             if (listaAlumnos.Count > 0)
                             {
                                 foreach (var item in ListaAlumnos)
@@ -225,7 +225,6 @@ namespace DirectorApp.ViewModels
                 {
                     Cargando = false;
                     Mensaje = ex.Message;
-                    await Task.Delay(1000);
                     Visible = false;
                 }
             }
@@ -299,7 +298,7 @@ namespace DirectorApp.ViewModels
                         var resp = await client.PostAsync("http://avisosprimaria.itesrc.net/api/AdminApp/addalumno/", new FormUrlEncodedContent(alumno));
                         if (resp.IsSuccessStatusCode)
                         {
-                            await App.Current.MainPage.DisplayAlert("Agregar Alumno", "El alumno se ha registrado correctamente.", "Aceptar");
+                            App.AvisosPrimaria.ShowSnackBar("El alumno se ha registrado correctamente.");
                             await App.Current.MainPage.Navigation.PopAsync();
                             Descargar();
                         }
@@ -397,6 +396,7 @@ namespace DirectorApp.ViewModels
                     Visible = true;
                     Cargando = true;
                     Mensaje = "Cargando...";
+                    MensajeError = "";
                     if (Alumno != null)
                     {
                         Validar(Alumno, true);
@@ -406,7 +406,7 @@ namespace DirectorApp.ViewModels
 
                         var alumno = new Dictionary<string, string>()
                     {
-                                                        {"IdAlumno",Alumno.IdAlumno.ToString() },
+                        {"IdAlumno",Alumno.IdAlumno.ToString() },
                         {"Clave",Alumno.Clave },
                         {"Nombre", Alumno.Nombre },
                         {"Password", Alumno.Password },
@@ -415,7 +415,8 @@ namespace DirectorApp.ViewModels
                         var resp = await client.PostAsync("http://avisosprimaria.itesrc.net/api/AdminApp/updatealumno/", new FormUrlEncodedContent(alumno));
                         if (resp.IsSuccessStatusCode)
                         {
-                            await App.Current.MainPage.DisplayAlert("Editar Alumno", "El alumno se ha editado correctamente.", "Aceptar");
+                            App.AvisosPrimaria.Connection.Update(Alumno);
+                            App.AvisosPrimaria.ShowSnackBar("El alumno se ha editado correctamente.");
                             await App.Current.MainPage.Navigation.PopAsync();
                             Descargar();
                         }

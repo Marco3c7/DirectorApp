@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="DirectorApp.Views.EditarMaestro" >
+             x:Class="DirectorApp.Views.EditarMaestro" Appearing="ContentPage_Appearing" Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
         <Style TargetType="Frame" x:Key="Estilo1">
             <Setter Property="CornerRadius" Value="8"/>
@@ -45,58 +45,69 @@
             <Setter Property="BackgroundColor" Value="#82C02F"/>
         </Style>
     </ContentPage.Resources>
-    <ScrollView>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="200"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+    <Grid>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
-                <Image Source="fondoAlumnos.png" VerticalOptions="Start"/>
-                <Image Source="maestro.png" VerticalOptions="Center"/>
+                <Grid Grid.Row="0">
+                    <Image Source="fondoAlumnos.png" VerticalOptions="Start"/>
+                    <Image Source="maestro.png" VerticalOptions="Center"/>
+                </Grid>
+
+                <Frame Grid.Row="1" Style="{StaticResource Estilo1}">
+                    <StackLayout>
+                        <Label Text="Editar maestro" Style="{StaticResource Estilo2}"/>
+
+                        <Grid HeightRequest="250" Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Image Grid.Column="0" Grid.Row="0" Source="numCtrl.png"/>
+                            <Entry Grid.Column="1" Grid.Row="0" Text="{Binding Maestro.Clave}" Placeholder="Clave de docente"
+                           ClearButtonVisibility="WhileEditing"/>
+
+                            <Image Grid.Column="0" Grid.Row="1" Source="name.png" Margin="1"/>
+                            <Entry Grid.Column="1" Grid.Row="1" Text="{Binding Maestro.Nombre}" Placeholder="Nombre"
+                           ClearButtonVisibility="WhileEditing"/>
+
+                            <Image Grid.Column="0" Grid.Row="2" Source="password.png"/>
+                            <Entry Grid.Column="1" Grid.Row="2" Text="{Binding Maestro.Password}" Placeholder="Contraseña" x:Name="txtContraseña" TextChanged="txtContraseña_TextChanged"
+                           IsPassword="True" ClearButtonVisibility="WhileEditing"/>
+
+                            <Image Grid.Column="0" Grid.Row="3" Source="password.png"/>
+                            <Entry Grid.Column="1" Grid.Row="3" Placeholder="Confirme la contraseña" Text="{Binding ContraseñaConfirmada}" x:Name="txtContraseña2" IsEnabled="{Binding ConfirmarContraseñaEnabled}"
+                           IsPassword="True" ClearButtonVisibility="WhileEditing"/>
+                        </Grid>
+
+                        <Label Text="{Binding MensajeError}" Style="{StaticResource Estilo3}"/>
+
+                        <Frame Style="{StaticResource Estilo4}">
+                            <Button Text="Guardar cambios" Command="{Binding EditarMaestroCommand}" Style="{StaticResource Estilo5}"/>
+                        </Frame>
+                        <Frame Style="{StaticResource Estilo4}">
+                            <Button Text="Cancelar" Command="{Binding CancelarCommand}" Style="{StaticResource Estilo5}"/>
+                        </Frame>
+                    </StackLayout>
+                </Frame>
             </Grid>
-
-            <Frame Grid.Row="1" Style="{StaticResource Estilo1}">
-                <StackLayout>
-                    <Label Text="Editar maestro" Style="{StaticResource Estilo2}"/>
-
-                    <Grid HeightRequest="250" Margin="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-
-                        <Image Grid.Column="0" Grid.Row="0" Source="numCtrl.png"/>
-                        <Entry Grid.Column="1" Grid.Row="0" Text="00000" 
-                           ClearButtonVisibility="WhileEditing"/>
-
-                        <Image Grid.Column="0" Grid.Row="1" Source="name.png" Margin="1"/>
-                        <Entry Grid.Column="1" Grid.Row="1" Text="Nombre del docente"
-                           ClearButtonVisibility="WhileEditing"/>
-
-                        <Image Grid.Column="0" Grid.Row="2" Source="password.png"/>
-                        <Entry Grid.Column="1" Grid.Row="2" Text="contraseña"
-                           IsPassword="True" ClearButtonVisibility="WhileEditing"/>
-
-                        <Image Grid.Column="0" Grid.Row="3" Source="password.png"/>
-                        <Entry Grid.Column="1" Grid.Row="3" Text="contraseña" 
-                           IsPassword="True" ClearButtonVisibility="WhileEditing"/>
-                    </Grid>
-
-                    <Label Text="Mensaje de error" Style="{StaticResource Estilo3}"/>
-
-                    <Frame Style="{StaticResource Estilo4}">
-                        <Button Text="Guardar cambios" Style="{StaticResource Estilo5}"/>
-                    </Frame>
-                </StackLayout>
-            </Frame>
-        </Grid>
-    </ScrollView>
+        </ScrollView>
+        <ContentView BackgroundColor="#c0ffffff" IsVisible="{Binding Visible}">
+            <StackLayout BackgroundColor="Transparent" VerticalOptions="Center" Padding="0,30">
+                <ActivityIndicator IsRunning="{Binding Cargando}"></ActivityIndicator>
+                <Label TextColor="Gray" Text="{Binding Mensaje}" HorizontalTextAlignment="Center"></Label>
+            </StackLayout>
+        </ContentView>
+    </Grid>
 </ContentPage>

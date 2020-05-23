@@ -133,7 +133,7 @@
                                     <SwipeView>
                                         <SwipeView.RightItems>
                                             <SwipeItem IconImageSource="delete.png" Command="{Binding Source={x:Reference thisPage},Path=BindingContext.EliminarCommand}" CommandParameter="{Binding IdMaestro}" BackgroundColor="#F5F5F5"/>
-                                            <SwipeItem IconImageSource="edit.png" BackgroundColor="#F5F5F5"/>
+                                            <SwipeItem IconImageSource="edit.png" Command="{Binding Source={x:Reference thisPage},Path=BindingContext.AbrirEditarCommand}" BackgroundColor="#F5F5F5" CommandParameter="{Binding IdMaestro}"/>
                                             <SwipeItem IconImageSource="see.png" Command="{Binding Source={x:Reference thisPage},Path=BindingContext.VerCommand}" CommandParameter="{Binding IdMaestro}" BackgroundColor="#F5F5F5"/>
                                         </SwipeView.RightItems>
                                         <StackLayout BackgroundColor="#F5F5F5">

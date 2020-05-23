@@ -73,9 +73,17 @@ namespace DirectorApp.ViewModels
             set { mensajeError = value; OnPropertyChanged(); }
         }
 
+        private Models.Maestro maestro;
+
+        public Models.Maestro Maestro
+        {
+            get { return maestro; }
+            set { maestro = value; OnPropertyChanged(); }
+        }
+
+
         public string Buscar { get; set; }
         public string ContraseñaConfirmada { get; set; }
-        public Models.Maestro Maestro { get; set; }
         public Command<string> BuscarCommand { get; set; }
         public Command DescargarCommand { get; set; }
         public Command CancelarCommand { get; set; }
@@ -84,7 +92,10 @@ namespace DirectorApp.ViewModels
         public Command<bool> HabilitarBotonCommand { get; set; }
         public Command<int> EliminarCommand { get; set; }
         public Command<int> VerCommand { get; set; }
+        public Command EditarMaestroCommand { get; set; }
         public Escuela Escuela { get; set; }
+
+        public Command<int> AbrirEditarCommand { get; set; }
         public MaestrosViewModel()
         {
             DescargarCommand = new Command(Descargar);
@@ -97,6 +108,88 @@ namespace DirectorApp.ViewModels
             HabilitarBotonCommand = new Command<bool>(HabilitarBoton);
             EliminarCommand = new Command<int>(EliminarMaestro);
             VerCommand = new Command<int>(VerDatosAlumno);
+            AbrirEditarCommand = new Command<int>(AbrirEditar);
+            EditarMaestroCommand = new Command(EditarMaestro);
+        }
+
+        async void EditarMaestro()
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                try
+                {
+                    Visible = true;
+                    Cargando = true;
+                    Mensaje = "Cargando...";
+                    MensajeError = "";
+                    if (Maestro != null)
+                    {
+                        Validar(Maestro, true);
+
+                        HttpClient client = new HttpClient();
+                        Maestro.IdEscuela = App.AvisosPrimaria.GetDatosEscuela().IdEscuela;
+
+                        var maestro = new Dictionary<string, string>()
+                    {
+                        {"idMaestro",Maestro.IdMaestro.ToString() },
+                            {"Clave", Maestro.Clave },
+                            {"Nombre", Maestro.Nombre },
+                            {"Password", Maestro.Password },
+                            {"idEscuela", Maestro.IdEscuela.ToString() }
+                    };
+                        var resp = await client.PostAsync("http://avisosprimaria.itesrc.net/api/AdminApp/updatemaestro/", new FormUrlEncodedContent(maestro));
+                        if (resp.IsSuccessStatusCode)
+                        {
+                            App.AvisosPrimaria.Connection.Update(Maestro);
+                            App.AvisosPrimaria.ShowSnackBar("El maestro se ha editado correctamente.");
+                            await App.Current.MainPage.Navigation.PopAsync();
+                            Descargar();
+                        }
+                        else
+                        {
+                            var error = await resp.Content.ReadAsStringAsync();
+                            if (string.IsNullOrWhiteSpace(error))
+                            {
+                                throw new Exception("Ha ocurrido un error con el servidor, intente más tarde.");
+                            }
+                            else
+                            {
+                                throw new Exception(error);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MensajeError = "Escriba los datos del alumno";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Visible = false;
+                    Cargando = false;
+                    Mensaje = "";
+                    MensajeError = ex.Message;
+                }
+            }
+            else
+            {
+                MensajeError = "Error de conexión de red";
+            }
+        }
+
+        EditarMaestro editarPage;
+        private void AbrirEditar(int obj)
+        {
+            if (editarPage == null)
+            {
+                editarPage = new EditarMaestro();
+            }
+            Maestro = App.AvisosPrimaria.Connection.Table<Models.Maestro>().Where(x => x.IdMaestro == obj).FirstOrDefault();
+            MensajeError = "";
+            ContraseñaConfirmada = "";
+            editarPage.BindingContext = null;
+            editarPage.BindingContext = this;
+            App.Current.MainPage.Navigation.PushAsync(editarPage);
         }
 
         Views.Maestro datosPage;
@@ -137,7 +230,7 @@ namespace DirectorApp.ViewModels
                                 Cargando = false;
                                 Mensaje = "";
                                 App.AvisosPrimaria.Connection.Delete(m);
-                                await App.Current.MainPage.DisplayAlert("Eliminar Maestro", $"El maestro: {m.Nombre}, se ha eliminado correctamente", "Aceptar");
+                                App.AvisosPrimaria.ShowSnackBar($"El maestro: { m.Nombre}, se ha eliminado correctamente");
                                 Descargar();
                             }
                             else
@@ -198,8 +291,8 @@ namespace DirectorApp.ViewModels
                         var resp = await client.PostAsync("http://avisosprimaria.itesrc.net/api/AdminApp/addmaestro/", new FormUrlEncodedContent(maestro));
                         if (resp.IsSuccessStatusCode)
                         {
-                            await App.Current.MainPage.DisplayAlert("Agregar Maestro", "El maestro se ha registrado correctamente.", "Aceptar");
                             await App.Current.MainPage.Navigation.PopAsync();
+                            App.AvisosPrimaria.ShowSnackBar("El maestro se ha registrado correctamente.");
                             Descargar();
                         }
                         else
@@ -289,7 +382,7 @@ namespace DirectorApp.ViewModels
                         if (resp.IsSuccessStatusCode)
                         {
                             ListaMaestros = JsonConvert.DeserializeObject<List<Models.Maestro>>(await resp.Content.ReadAsStringAsync());
-
+                            App.AvisosPrimaria.Connection.DeleteAll<Models.Maestro>();
                             if (listaMaestros.Count > 0)
                             {
                                 foreach (var item in ListaMaestros)

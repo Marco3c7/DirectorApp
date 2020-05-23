@@ -112,7 +112,7 @@
                                 <SwipeView>
                                     <SwipeView.RightItems>
                                         <SwipeItem IconImageSource="bin.png" Command="{Binding Source={x:Reference thisPage},Path=BindingContext.EliminarCommand}" CommandParameter="{Binding IdGrupo}" BackgroundColor="#F5F5F5"/>
-                                        <SwipeItem IconImageSource="edit.png" BackgroundColor="#F5F5F5"/>
+                                        <SwipeItem IconImageSource="edit.png" Command="{Binding Source={x:Reference thisPage},Path=BindingContext.AbrirEditarCommand}" CommandParameter="{Binding IdGrupo}" BackgroundColor="#F5F5F5"/>
                                     </SwipeView.RightItems>
 
                                     <Grid HeightRequest="50" BackgroundColor="#F5F5F5">

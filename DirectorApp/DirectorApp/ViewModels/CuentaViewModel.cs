@@ -7,12 +7,19 @@ using Xamarin.Forms;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Essentials;
+using System.Net.Http;
 
 namespace DirectorApp.ViewModels
 {
     public class CuentaViewModel : INotifyPropertyChanged
     {
-        public Escuela Escuela { get; set; }
+        private Escuela escuela;
+
+        public Escuela Escuela
+        {
+            get { return escuela; }
+            set { escuela = value; OnPropertyChanged(); }
+        }
 
         private int totalGrupos;
 
@@ -103,7 +110,6 @@ namespace DirectorApp.ViewModels
             EditarCommand = new Command(EditarCuenta);
             HabilitarBotonCommand = new Command<bool>(HabilitarBoton);
         }
-
         void HabilitarBoton(bool obj)
         {
             ConfirmarContraseñaEnabled = obj;
@@ -121,6 +127,36 @@ namespace DirectorApp.ViewModels
                     if (Escuela != null)
                     {
                         Validar();
+                        HttpClient client = new HttpClient();
+
+                        var escuela = new Dictionary<string, string>()
+                    {
+                        {"idEscuela",Escuela.IdEscuela.ToString() },
+                        {"Nombre", Escuela.Nombre },
+                        {"NombreAdmin", Escuela.NombreAdmin },
+                        {"Password", Escuela.Password }
+                    };
+                        var resp = await client.PostAsync("http://avisosprimaria.itesrc.net/api/AdminApp/updateadmin/", new FormUrlEncodedContent(escuela));
+                        if (resp.IsSuccessStatusCode)
+                        {
+                            Escuela.Password = "";
+                            App.AvisosPrimaria.Connection.Update(Escuela);
+                            App.AvisosPrimaria.ShowSnackBar("La cuenta se ha editado correctamente.");
+                            await App.Current.MainPage.Navigation.PopAsync();
+                            Actualizar();
+                        }
+                        else
+                        {
+                            var error = await resp.Content.ReadAsStringAsync();
+                            if (string.IsNullOrWhiteSpace(error))
+                            {
+                                throw new Exception("Ha ocurrido un error con el servidor, intente más tarde.");
+                            }
+                            else
+                            {
+                                throw new Exception(error);
+                            }
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -147,6 +183,7 @@ namespace DirectorApp.ViewModels
             TotalGrupos = App.AvisosPrimaria.TotalGrupos();
             TotalMaestros = App.AvisosPrimaria.Connection.Table<Models.Maestro>().Count();
             TotalAlumnos = App.AvisosPrimaria.Connection.Table<Models.Alumno>().Count();
+            Escuela = App.AvisosPrimaria.GetDatosEscuela();
         }
 
         async void AbrirEditar()

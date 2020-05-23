@@ -105,7 +105,7 @@
                             <Button Text="Añadir" Command="{Binding AgregarGrupoCommand}" Style="{StaticResource Estilo9}"/>
                         </Frame>
                         <Frame Style="{StaticResource Estilo8}">
-                            <Button Text="Cancelar" Command="{Binding AgregarGrupoCommand}" Style="{StaticResource Estilo9}"/>
+                            <Button Text="Cancelar" Command="{Binding CancelarCommand}" Style="{StaticResource Estilo9}"/>
                         </Frame>
                     </StackLayout>
                 </Grid>

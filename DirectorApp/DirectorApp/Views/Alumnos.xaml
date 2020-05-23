@@ -107,7 +107,6 @@
                                             <SwipeItems>
                                                 <SwipeItem IconImageSource="delete.png" Command="{Binding Source={x:Reference thisPage},Path=BindingContext.EliminarCommand}" CommandParameter="{Binding IdAlumno}" BackgroundColor="#F5F5F5"/>
                                                 <SwipeItem Command="{Binding Source={x:Reference thisPage},Path=BindingContext.AbrirEditarAlumnoCommand}" CommandParameter="{Binding IdAlumno}" IconImageSource="edit.png" BackgroundColor="#F5F5F5"/>
-                                                <SwipeItem IconImageSource="see.png" BackgroundColor="#F5F5F5"/>
                                             </SwipeItems>
                                         </SwipeView.RightItems>
 

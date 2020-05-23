@@ -4,7 +4,11 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="DirectorApp.Views.Mensajes">
+             xmlns:viewmodel="clr-namespace:DirectorApp.ViewModels"
+             x:Class="DirectorApp.Views.Mensajes" Appearing="ContentPage_Appearing" x:Name="thisPage">
+    <ContentPage.BindingContext>
+        <viewmodel:MensajesViewModel></viewmodel:MensajesViewModel>
+    </ContentPage.BindingContext>
     <ContentPage.Resources>
         <Style TargetType="Frame" x:Key="Estilo1">
             <Setter Property="HeightRequest" Value="80"/>
@@ -74,56 +78,64 @@
         </Style>
     </ContentPage.Resources>
 
-    <ScrollView>
-        <StackLayout Margin="15">
-            <Frame Style="{StaticResource Estilo1}">
-                <StackLayout Orientation="Horizontal">
-                    <Image Source="mail.png" Style="{StaticResource Estilo2}"/>
-                    <Label Text="Avisos publicados" Style="{StaticResource Estilo3}"/>
-                </StackLayout>
-            </Frame>
-
-            <Label Text="Buscar por fecha" Style="{StaticResource Estilo4}"/>
-            <Grid HeightRequest="50">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="60"/>
-                </Grid.ColumnDefinitions>
-                <DatePicker Grid.Column="0" Style="{StaticResource Estilo5}"/>
-                <Frame Grid.Column="1" Style="{StaticResource Estilo6}">
-                    <ImageButton Source="addMessage.png" Style="{StaticResource Estilo7}"/>
+    <Grid>
+        <ScrollView>
+            <StackLayout Margin="15">
+                <Frame Style="{StaticResource Estilo1}">
+                    <StackLayout Orientation="Horizontal">
+                        <Image Source="mail.png" Style="{StaticResource Estilo2}"/>
+                        <Label Text="Avisos publicados" Style="{StaticResource Estilo3}"/>
+                    </StackLayout>
                 </Frame>
-            </Grid>
 
-            <Label Text="Deslice el dedo hacia la izquierda para más opciones" Style="{StaticResource Estilo8}"/>
+                <Label Text="Buscar por fecha" Style="{StaticResource Estilo4}"/>
+                <Grid HeightRequest="50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+                    <DatePicker Grid.Column="0" x:Name="dtpFecha" Style="{StaticResource Estilo5}" DateSelected="dtpFecha_DateSelected"/>
+                    <Frame Grid.Column="1" Style="{StaticResource Estilo6}">
+                        <ImageButton Source="addMessage.png" Command="{Binding AbrirAgregarCommand}" Style="{StaticResource Estilo7}"/>
+                    </Frame>
+                </Grid>
+                <Button Padding="0" Text="Mostrar Todo" BackgroundColor="Transparent" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Start" Command="{Binding MostrarMensajesCommand}"></Button>
 
-            <CollectionView>
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Span="1" VerticalItemSpacing="15" Orientation="Horizontal"/>
-                </CollectionView.ItemsLayout>
+                <Label Text="Deslice el dedo hacia la izquierda para más opciones" Style="{StaticResource Estilo8}"/>
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame Style="{StaticResource Estilo9}">
-                            <SwipeView>
-                                <SwipeView.RightItems>
-                                    <SwipeItem IconImageSource="bin.png" BackgroundColor="#F5F5F5"/>
-                                    <SwipeItem IconImageSource="see.png" BackgroundColor="#F5F5F5"/>
-                                </SwipeView.RightItems>
+                <CollectionView ItemsSource="{Binding Mensajes}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Span="1" VerticalItemSpacing="15" Orientation="Vertical"/>
+                    </CollectionView.ItemsLayout>
 
-                                <Grid HeightRequest="40" BackgroundColor="#F5F5F5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition Width="60"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0" Text="Suspensión de clases" Style="{StaticResource Estilo10}"/>
-                                    <Label Grid.Column="1" Text="16/03/2020" Style="{StaticResource Estilo11}"/>
-                                </Grid>
-                            </SwipeView>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
-    </ScrollView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Style="{StaticResource Estilo9}">
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItem IconImageSource="see.png" Command="{Binding Source={x:Reference thisPage}, Path=BindingContext.VerDatosCommand}" CommandParameter="{Binding IdAvisosGenerales}" BackgroundColor="#F5F5F5"/>
+                                    </SwipeView.RightItems>
+
+                                    <Grid HeightRequest="40" BackgroundColor="#F5F5F5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="60"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Text="{Binding Titulo}" Style="{StaticResource Estilo10}"/>
+                                        <Label Grid.Column="1" Text="{Binding FechaEnviado, StringFormat='{0:MMMM d, yyyy}'}" Style="{StaticResource Estilo11}"/>
+                                    </Grid>
+                                </SwipeView>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
+        <ContentView BackgroundColor="#c0ffffff" IsVisible="{Binding Visible}">
+            <StackLayout BackgroundColor="Transparent" VerticalOptions="Center" Padding="0,30">
+                <ActivityIndicator IsRunning="{Binding Cargando}"></ActivityIndicator>
+                <Label TextColor="Gray" Text="{Binding Mensaje}" HorizontalTextAlignment="Center"></Label>
+            </StackLayout>
+        </ContentView>
+    </Grid>
 </ContentPage>
